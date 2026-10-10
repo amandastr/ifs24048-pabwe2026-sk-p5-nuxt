@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import CashFlowLayout from "./CashFlowLayout.vue";
 import { renderWithProviders } from "../../../test-utils";
 import apiHelper from "../../../helpers/apiHelper";
+import userApi from "../../users/api/userApi";
 
 const mockRouter = {
   push: vi.fn(),
@@ -69,6 +70,11 @@ describe("CashFlowLayout", () => {
 
   it("should stay on page when isProfile is triggered and profile exists", async () => {
     vi.spyOn(apiHelper, "getAccessToken").mockReturnValue("valid-token");
+    vi.spyOn(userApi, "getProfile").mockResolvedValue({
+      id: 1,
+      name: "Logged User",
+      email: "l@del.org",
+    } as any);
 
     const { wrapper, usersStore } = renderWithProviders(CashFlowLayout, {
       preloadedState: {

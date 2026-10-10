@@ -18,4 +18,18 @@ describe("router.options", () => {
     const dashboard = routes[1].children!.map((c) => c.path);
     expect(dashboard).toEqual(["", "cash-flows/:cashFlowId", "users", "profile"]);
   });
+
+  it("should lazy-load every route component", async () => {
+    const collect = (list: any[]): any[] =>
+      list.flatMap((r) => [r, ...(r.children ? collect(r.children) : [])]);
+
+    const components = collect(routes)
+      .map((r) => r.component)
+      .filter(Boolean);
+
+    expect(components.length).toBe(9);
+
+    const modules = await Promise.all(components.map((load: any) => load()));
+    modules.forEach((mod) => expect(mod.default).toBeDefined());
+  });
 });
