@@ -79,16 +79,23 @@ export function calculateStats(cashFlows: CashFlow[]): CashFlowStats {
   return stats;
 }
 
-export function normalizeStats(raw: Record<string, any>): CashFlowStats {
-  const totalInflow = toNumber(raw.total_inflow);
-  const totalOutflow = toNumber(raw.total_outflow);
+function pick(value: unknown, fallback: number): number {
+  return value === undefined || value === null ? fallback : toNumber(value);
+}
+
+export function normalizeStats(
+  raw: Record<string, any>,
+  fallback: CashFlowStats
+): CashFlowStats {
+  const totalInflow = pick(raw.total_inflow, fallback.total_inflow);
+  const totalOutflow = pick(raw.total_outflow, fallback.total_outflow);
   return {
     total_inflow: totalInflow,
     total_outflow: totalOutflow,
     balance: totalInflow - totalOutflow,
-    cash: toNumber(raw.cash),
-    savings: toNumber(raw.savings),
-    loans: toNumber(raw.loans),
+    cash: pick(raw.cash, fallback.cash),
+    savings: pick(raw.savings, fallback.savings),
+    loans: pick(raw.loans, fallback.loans),
   };
 }
 
@@ -142,9 +149,10 @@ const cashFlowApi = (() => {
       "Gagal mengambil data arus kas"
     );
     const cashFlows: CashFlow[] = result.data?.cash_flows || [];
+    const calculated = calculateStats(cashFlows);
     const stats = result.data?.stats
-      ? normalizeStats(result.data.stats)
-      : calculateStats(cashFlows);
+      ? normalizeStats(result.data.stats, calculated)
+      : calculated;
     return { cashFlows, stats };
   }
 

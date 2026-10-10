@@ -58,22 +58,43 @@ describe("cashFlowApi helpers", () => {
     expect(calculateStats([])).toEqual(emptyStats());
   });
 
-  it("normalizeStats should map raw values and fallback invalid ones to zero", () => {
+  it("normalizeStats should map raw values and fall back for missing ones", () => {
+    const fallback = {
+      total_inflow: 1,
+      total_outflow: 2,
+      balance: -1,
+      cash: 3,
+      savings: 4,
+      loans: 5,
+    };
+
     expect(
-      normalizeStats({
-        total_inflow: "1000",
-        total_outflow: 400,
-        cash: 300,
-        savings: "x",
-        loans: undefined,
-      })
+      normalizeStats(
+        {
+          total_inflow: "1000",
+          total_outflow: 400,
+          cash: 300,
+          savings: "x",
+          loans: undefined,
+        },
+        fallback
+      )
     ).toEqual({
       total_inflow: 1000,
       total_outflow: 400,
       balance: 600,
       cash: 300,
       savings: 0,
-      loans: 0,
+      loans: 5,
+    });
+
+    expect(normalizeStats({ cash: null }, fallback)).toEqual({
+      total_inflow: 1,
+      total_outflow: 2,
+      balance: -1,
+      cash: 3,
+      savings: 4,
+      loans: 5,
     });
   });
 });
@@ -99,6 +120,24 @@ describe("cashFlowApi", () => {
       expect(res.stats.balance).toBe(10);
       expect(spy.mock.calls[0][0]).toMatch(/\/cash-flows\/$/);
       expect(spy.mock.calls[0][1]).toEqual({ method: "GET" });
+    });
+
+    it("should fill missing API stat fields from the calculated list", async () => {
+      mockResponse({
+        success: true,
+        data: {
+          cash_flows: [
+            { id: 1, type: "outflow", source: "cash", label: "a", nominal: 911000 },
+          ],
+          stats: { total_inflow: 0, total_outflow: 911000 },
+        },
+      });
+
+      const res = await cashFlowApi.getCashFlows();
+
+      expect(res.stats.total_outflow).toBe(911000);
+      expect(res.stats.cash).toBe(-911000);
+      expect(res.stats.balance).toBe(-911000);
     });
 
     it("should calculate stats locally when API has no stats", async () => {
