@@ -33,10 +33,7 @@ const authApi = (() => {
     if (result.status !== "success" && !result.success) {
       const errorDetails =
         result.data && typeof result.data === "object"
-          ? Object.values(result.data)
-              .flat()
-              .map((item) => String(item))
-              .join(", ")
+          ? Object.values(result.data).flat().join(", ")
           : "";
       const baseMsg = result.message || "Gagal melakukan pendaftaran";
       throw new Error(errorDetails ? `${baseMsg}: ${errorDetails}` : baseMsg);

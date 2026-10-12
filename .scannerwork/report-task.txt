@@ -1,0 +1,6 @@
+projectKey=ifs24048-pabwe2026-sk-p5-nuxt
+serverUrl=https://sonarqube.delcom.org
+serverVersion=25.12.0.117093
+dashboardUrl=https://sonarqube.delcom.org/dashboard?id=ifs24048-pabwe2026-sk-p5-nuxt
+ceTaskId=1de44620-9baf-4868-afd4-1731db5266e3
+ceTaskUrl=https://sonarqube.delcom.org/api/ce/task?id=1de44620-9baf-4868-afd4-1731db5266e3

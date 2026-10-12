@@ -9,7 +9,7 @@ const apiHelper = (() => {
 
     const token = getAccessToken();
     const headers: Record<string, string> = {
-      ...(options.headers as Record<string, string>),
+      ...((options.headers as Record<string, string>) || {}),
     };
 
     if (token) {
@@ -24,10 +24,10 @@ const apiHelper = (() => {
   }
 
   function putAccessToken(token: string | null): void {
-    if (token) {
-      localStorage.setItem("accessToken", token);
-    } else {
+    if (!token) {
       localStorage.removeItem("accessToken");
+    } else {
+      localStorage.setItem("accessToken", token);
     }
   }
 

@@ -70,10 +70,10 @@
 
         <form @submit.prevent="handleUpdateProfile" class="space-y-4">
           <div>
-            <label for="profile-name-input" class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
               Nama Lengkap
             </label>
-            <input id="profile-name-input" aria-label="Nama lengkap"
+            <input aria-label="Nama lengkap"
               type="text"
               data-testid="profile-name-input"
               v-model="name"
@@ -83,10 +83,10 @@
           </div>
 
           <div>
-            <label for="profile-email-input" class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
               Alamat Email
             </label>
-            <input id="profile-email-input" aria-label="Alamat email"
+            <input aria-label="Alamat email"
               type="email"
               data-testid="profile-email-input"
               v-model="email"
@@ -123,10 +123,10 @@
 
         <form @submit.prevent="handleUpdatePassword" class="space-y-4">
           <div>
-            <label for="current-password-input" class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
               Kata Sandi Saat Ini
             </label>
-            <input id="current-password-input" aria-label="Kata sandi saat ini"
+            <input aria-label="Kata sandi saat ini"
               type="password"
               data-testid="current-password-input"
               v-model="oldPassword"
@@ -137,10 +137,10 @@
           </div>
 
           <div>
-            <label for="new-password-input" class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
               Kata Sandi Baru
             </label>
-            <input id="new-password-input" aria-label="Kata sandi baru"
+            <input aria-label="Kata sandi baru"
               type="password"
               data-testid="new-password-input"
               v-model="newPassword"
@@ -151,10 +151,10 @@
           </div>
 
           <div>
-            <label for="confirm-password-input" class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
               Ulangi Kata Sandi Baru
             </label>
-            <input id="confirm-password-input" aria-label="Konfirmasi kata sandi baru"
+            <input aria-label="Konfirmasi kata sandi baru"
               type="password"
               data-testid="confirm-password-input"
               v-model="newPasswordConfirmation"

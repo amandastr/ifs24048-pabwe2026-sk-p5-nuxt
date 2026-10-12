@@ -6,7 +6,7 @@ export default function useInput(
   const value = ref<string>(defaultValue);
 
   function handleValueChange(event: any): void {
-    value.value = event?.target?.value === undefined ? event : event.target.value;
+    value.value = event?.target?.value !== undefined ? event.target.value : event;
   }
 
   return [value, handleValueChange, (val: string) => { value.value = val; }];

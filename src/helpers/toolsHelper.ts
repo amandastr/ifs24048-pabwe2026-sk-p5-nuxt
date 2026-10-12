@@ -88,9 +88,5 @@ const sourceLabels: Record<string, string> = {
 };
 
 export function formatSource(source: string | null | undefined): string {
-  return sourceLabels[source ?? ""] || source || "-";
-}
-
-export function getErrorMessage(error: unknown): string {
-  return error instanceof Error ? error.message : String(error);
+  return sourceLabels[source as string] || source || "-";
 }
