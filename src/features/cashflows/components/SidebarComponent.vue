@@ -4,7 +4,6 @@
     <div
       v-if="isSidebarOpen"
       data-testid="sidebar-backdrop"
-      aria-hidden="true"
       @click="$emit('close-mobile')"
       class="fixed inset-0 z-30 bg-slate-900/40 backdrop-blur-xs md:hidden"
     />

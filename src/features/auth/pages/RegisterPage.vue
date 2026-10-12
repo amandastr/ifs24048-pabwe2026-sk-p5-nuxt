@@ -11,7 +11,6 @@
         />
         <input id="register-name-input" aria-label="Nama lengkap"
           type="text"
-          autocomplete="name"
           data-testid="register-name-input"
           v-model="name"
           placeholder="Nama Lengkap Anda"
@@ -32,7 +31,6 @@
         />
         <input id="register-email-input" aria-label="Alamat email"
           type="email"
-          autocomplete="email"
           data-testid="register-email-input"
           v-model="email"
           placeholder="nama@email.com"
@@ -53,7 +51,6 @@
         />
         <input id="register-password-input" aria-label="Kata sandi"
           type="password"
-          autocomplete="new-password"
           data-testid="register-password-input"
           v-model="password"
           placeholder="Minimal 6 karakter"

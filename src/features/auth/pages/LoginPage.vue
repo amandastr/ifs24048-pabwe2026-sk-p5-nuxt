@@ -11,7 +11,6 @@
         />
         <input aria-label="Alamat email"
           type="email"
-          autocomplete="email"
           id="login-email-input"
           data-testid="login-email-input"
           v-model="email"
@@ -33,7 +32,6 @@
         />
         <input aria-label="Kata sandi"
           type="password"
-          autocomplete="current-password"
           id="login-password-input"
           data-testid="login-password-input"
           v-model="password"

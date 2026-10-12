@@ -75,7 +75,6 @@
             </label>
             <input id="profile-name-input" aria-label="Nama lengkap"
               type="text"
-              autocomplete="name"
               data-testid="profile-name-input"
               v-model="name"
               class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all"
@@ -89,7 +88,6 @@
             </label>
             <input id="profile-email-input" aria-label="Alamat email"
               type="email"
-              autocomplete="email"
               data-testid="profile-email-input"
               v-model="email"
               class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all"
@@ -130,7 +128,6 @@
             </label>
             <input id="current-password-input" aria-label="Kata sandi saat ini"
               type="password"
-              autocomplete="current-password"
               data-testid="current-password-input"
               v-model="oldPassword"
               placeholder="••••••"
@@ -145,7 +142,6 @@
             </label>
             <input id="new-password-input" aria-label="Kata sandi baru"
               type="password"
-              autocomplete="new-password"
               data-testid="new-password-input"
               v-model="newPassword"
               placeholder="Minimal 6 karakter"
@@ -160,7 +156,6 @@
             </label>
             <input id="confirm-password-input" aria-label="Konfirmasi kata sandi baru"
               type="password"
-              autocomplete="new-password"
               data-testid="confirm-password-input"
               v-model="newPasswordConfirmation"
               placeholder="Konfirmasi kata sandi"
