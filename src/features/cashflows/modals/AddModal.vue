@@ -31,10 +31,10 @@
       <form @submit.prevent="handleSave" class="p-6 space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-semibold text-slate-700 mb-1.5">
+            <label for="add-cash-flow-type-select" class="block text-sm font-semibold text-slate-700 mb-1.5">
               Jenis Arus Kas <span class="text-red-500">*</span>
             </label>
-            <select aria-label="Jenis arus kas"
+            <select id="add-cash-flow-type-select" aria-label="Jenis arus kas"
               data-testid="add-cash-flow-type-select"
               v-model="type"
               class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all text-sm shadow-xs"
@@ -45,10 +45,10 @@
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-slate-700 mb-1.5">
+            <label for="add-cash-flow-source-select" class="block text-sm font-semibold text-slate-700 mb-1.5">
               Sumber Dana <span class="text-red-500">*</span>
             </label>
-            <select aria-label="Sumber dana"
+            <select id="add-cash-flow-source-select" aria-label="Sumber dana"
               data-testid="add-cash-flow-source-select"
               v-model="source"
               class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all text-sm shadow-xs"
@@ -60,10 +60,10 @@
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-slate-700 mb-1.5">
+            <label for="add-cash-flow-label-input" class="block text-sm font-semibold text-slate-700 mb-1.5">
               Label Kategori <span class="text-red-500">*</span>
             </label>
-            <input aria-label="Label kategori"
+            <input id="add-cash-flow-label-input" aria-label="Label kategori"
               type="text"
               data-testid="add-cash-flow-label-input"
               v-model="label"
@@ -78,10 +78,10 @@
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-slate-700 mb-1.5">
+            <label for="add-cash-flow-nominal-input" class="block text-sm font-semibold text-slate-700 mb-1.5">
               Nominal (Rp) <span class="text-red-500">*</span>
             </label>
-            <input aria-label="Nominal dalam rupiah"
+            <input id="add-cash-flow-nominal-input" aria-label="Nominal dalam rupiah"
               type="number"
               min="0"
               data-testid="add-cash-flow-nominal-input"
@@ -94,10 +94,10 @@
         </div>
 
         <div>
-          <label class="block text-sm font-semibold text-slate-700 mb-1.5">
+          <label for="add-cash-flow-description-input" class="block text-sm font-semibold text-slate-700 mb-1.5">
             Keterangan <span class="text-red-500">*</span>
           </label>
-          <textarea aria-label="Keterangan transaksi"
+          <textarea id="add-cash-flow-description-input" aria-label="Keterangan transaksi"
             data-testid="add-cash-flow-description-input"
             v-model="description"
             rows="4"
@@ -153,7 +153,7 @@ const props = withDefaults(defineProps<AddModalProps>(), {
 });
 
 const emit = defineEmits<{
-  (e: "close"): void;
+  close: [];
 }>();
 
 const cashFlowsStore = useCashFlowsStore();
@@ -211,7 +211,7 @@ function handleSave() {
     return;
   }
 
-  if (!(toNumber(nominal.value) > 0)) {
+  if (toNumber(nominal.value) <= 0) {
     showErrorDialog("Nominal harus lebih dari 0");
     return;
   }

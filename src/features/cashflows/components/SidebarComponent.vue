@@ -84,7 +84,7 @@ withDefaults(defineProps<SidebarProps>(), {
 });
 
 defineEmits<{
-  (e: "close-mobile"): void;
+  "close-mobile": [];
 }>();
 
 const navItems = [

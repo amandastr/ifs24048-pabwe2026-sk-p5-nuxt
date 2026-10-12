@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="onSubmitHandler" class="space-y-4">
     <div>
-      <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+      <label for="register-name-input" class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
         Nama Lengkap
       </label>
       <div class="relative">
@@ -9,7 +9,7 @@
           :size="18"
           class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600"
         />
-        <input aria-label="Nama lengkap"
+        <input id="register-name-input" aria-label="Nama lengkap"
           type="text"
           data-testid="register-name-input"
           v-model="name"
@@ -21,7 +21,7 @@
     </div>
 
     <div>
-      <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+      <label for="register-email-input" class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
         Alamat Email
       </label>
       <div class="relative">
@@ -29,7 +29,7 @@
           :size="18"
           class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600"
         />
-        <input aria-label="Alamat email"
+        <input id="register-email-input" aria-label="Alamat email"
           type="email"
           data-testid="register-email-input"
           v-model="email"
@@ -41,7 +41,7 @@
     </div>
 
     <div>
-      <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+      <label for="register-password-input" class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
         Kata Sandi
       </label>
       <div class="relative">
@@ -49,7 +49,7 @@
           :size="18"
           class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600"
         />
-        <input aria-label="Kata sandi"
+        <input id="register-password-input" aria-label="Kata sandi"
           type="password"
           data-testid="register-password-input"
           v-model="password"

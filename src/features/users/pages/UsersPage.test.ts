@@ -88,6 +88,8 @@ describe("UsersPage", () => {
     usersStore.asyncSetUsers();
     await new Promise((r) => setTimeout(r, 10));
 
+    expect(usersStore.asyncSetUsers).toHaveBeenCalledTimes(1);
+
     // Cleanup
     resolveLoad();
     await pendingPromise;
@@ -107,5 +109,7 @@ describe("UsersPage", () => {
     wrapper.unmount();
     resolveLoad();
     await pendingPromise;
+
+    expect(usersStore.asyncSetUsers).toHaveBeenCalledTimes(1);
   });
 });

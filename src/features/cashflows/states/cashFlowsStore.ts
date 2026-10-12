@@ -8,9 +8,11 @@ import cashFlowApi, {
   type CashFlowType,
   type CashFlowSource,
 } from "../api/cashFlowApi";
-import { showErrorDialog, showSuccessDialog } from "../../../helpers/toolsHelper";
-
-export type { CashFlow, CashFlowStats, CashFlowQueryParams };
+import {
+  getErrorMessage,
+  showErrorDialog,
+  showSuccessDialog,
+} from "../../../helpers/toolsHelper";
 
 export interface CashFlowsState {
   cashFlows: CashFlow[];
@@ -19,6 +21,7 @@ export interface CashFlowsState {
   labels: string[];
   dailyStats: CashFlowStatItem[];
   monthlyStats: CashFlowStatItem[];
+  lastError: string;
   isCashFlow: boolean;
   isCashFlowAdd: boolean;
   isCashFlowAdded: boolean;
@@ -38,6 +41,7 @@ export const useCashFlowsStore = defineStore("cashFlows", {
     labels: [],
     dailyStats: [],
     monthlyStats: [],
+    lastError: "",
     isCashFlow: false,
     isCashFlowAdd: false,
     isCashFlowAdded: false,
@@ -49,6 +53,9 @@ export const useCashFlowsStore = defineStore("cashFlows", {
     isCashFlowDeletedAll: false,
   }),
   actions: {
+    setLastError(message: string) {
+      this.lastError = message;
+    },
     setCashFlows(cashFlows: CashFlow[]) {
       this.cashFlows = cashFlows;
     },
@@ -100,6 +107,7 @@ export const useCashFlowsStore = defineStore("cashFlows", {
         this.setCashFlows(cashFlows);
         this.setStats(stats);
       } catch (error) {
+        this.setLastError(getErrorMessage(error));
         this.setCashFlows([]);
         this.setStats(emptyStats());
       }
@@ -109,6 +117,7 @@ export const useCashFlowsStore = defineStore("cashFlows", {
         const cashFlow = await cashFlowApi.getCashFlowById(cashFlowId);
         this.setCashFlow(cashFlow || null);
       } catch (error) {
+        this.setLastError(getErrorMessage(error));
         this.setCashFlow(null);
       } finally {
         this.setIsCashFlow(true);
@@ -118,6 +127,7 @@ export const useCashFlowsStore = defineStore("cashFlows", {
       try {
         this.setLabels(await cashFlowApi.getLabels());
       } catch (error) {
+        this.setLastError(getErrorMessage(error));
         this.setLabels([]);
       }
     },
@@ -125,6 +135,7 @@ export const useCashFlowsStore = defineStore("cashFlows", {
       try {
         this.setDailyStats(await cashFlowApi.getDailyStats());
       } catch (error) {
+        this.setLastError(getErrorMessage(error));
         this.setDailyStats([]);
       }
     },
@@ -132,6 +143,7 @@ export const useCashFlowsStore = defineStore("cashFlows", {
       try {
         this.setMonthlyStats(await cashFlowApi.getMonthlyStats());
       } catch (error) {
+        this.setLastError(getErrorMessage(error));
         this.setMonthlyStats([]);
       }
     },

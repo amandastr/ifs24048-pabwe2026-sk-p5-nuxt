@@ -14,6 +14,8 @@ vi.mock("../../../helpers/apiHelper", () => ({
 vi.mock("../../../helpers/toolsHelper", () => ({
   showSuccessDialog: vi.fn(),
   showErrorDialog: vi.fn(),
+  getErrorMessage: (error: unknown) =>
+    error instanceof Error ? error.message : String(error),
 }));
 
 describe("authStore", () => {
@@ -120,6 +122,12 @@ describe("authStore", () => {
       expect(apiHelper.putAccessToken).toHaveBeenCalledWith("");
       expect(store.isAuthLoggedOut).toBe(true);
       expect(store.isAuthLogout).toBe(true);
+      expect(store.lastError).toBe("Network error");
     });
+  });
+
+  it("should store the last error message with setLastError", () => {
+    store.setLastError("Oops");
+    expect(store.lastError).toBe("Oops");
   });
 });

@@ -207,3 +207,42 @@ describe("usersStore", () => {
     });
   });
 });
+
+describe("usersStore - lastError", () => {
+  beforeEach(() => {
+    setActivePinia(createPinia());
+    vi.restoreAllMocks();
+  });
+
+  it("should store the last error message with setLastError", () => {
+    const store = useUsersStore();
+    expect(store.lastError).toBe("");
+    store.setLastError("Oops");
+    expect(store.lastError).toBe("Oops");
+  });
+
+  it("should record the error when loading users fails", async () => {
+    const store = useUsersStore();
+    vi.spyOn(userApi, "getUsers").mockRejectedValue(new Error("Gagal users"));
+    await store.asyncSetUsers();
+    expect(store.users).toEqual([]);
+    expect(store.lastError).toBe("Gagal users");
+  });
+
+  it("should record the error when loading a user fails", async () => {
+    const store = useUsersStore();
+    vi.spyOn(userApi, "getUserById").mockRejectedValue(new Error("Gagal user"));
+    await store.asyncSetUserById(1);
+    expect(store.user).toBeNull();
+    expect(store.lastError).toBe("Gagal user");
+  });
+
+  it("should record the error when loading the profile fails", async () => {
+    const store = useUsersStore();
+    vi.spyOn(userApi, "getProfile").mockRejectedValue(new Error("Gagal profil"));
+    await store.asyncSetProfile();
+    expect(store.profile).toBeNull();
+    expect(store.isProfile).toBe(true);
+    expect(store.lastError).toBe("Gagal profil");
+  });
+});

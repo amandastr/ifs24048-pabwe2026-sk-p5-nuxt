@@ -1,6 +1,10 @@
 import { defineStore } from "pinia";
 import userApi, { type User } from "../api/userApi";
-import { showErrorDialog, showSuccessDialog } from "../../../helpers/toolsHelper";
+import {
+  getErrorMessage,
+  showErrorDialog,
+  showSuccessDialog,
+} from "../../../helpers/toolsHelper";
 
 export interface UsersState {
   users: User[];
@@ -10,6 +14,7 @@ export interface UsersState {
   isChangeProfile: boolean;
   isChangeProfilePhoto: boolean;
   isChangeProfilePassword: boolean;
+  lastError: string;
 }
 
 export const useUsersStore = defineStore("users", {
@@ -21,8 +26,12 @@ export const useUsersStore = defineStore("users", {
     isChangeProfile: false,
     isChangeProfilePhoto: false,
     isChangeProfilePassword: false,
+    lastError: "",
   }),
   actions: {
+    setLastError(message: string) {
+      this.lastError = message;
+    },
     setUsers(users: User[]) {
       this.users = users;
     },
@@ -49,6 +58,7 @@ export const useUsersStore = defineStore("users", {
         const users = await userApi.getUsers();
         this.setUsers(users);
       } catch (error) {
+        this.setLastError(getErrorMessage(error));
         this.setUsers([]);
       }
     },
@@ -57,6 +67,7 @@ export const useUsersStore = defineStore("users", {
         const user = await userApi.getUserById(userId);
         this.setUser(user);
       } catch (error) {
+        this.setLastError(getErrorMessage(error));
         this.setUser(null);
       }
     },
@@ -65,6 +76,7 @@ export const useUsersStore = defineStore("users", {
         const profile = await userApi.getProfile();
         this.setProfile(profile);
       } catch (error) {
+        this.setLastError(getErrorMessage(error));
         this.setProfile(null);
       } finally {
         this.setIsProfile(true);

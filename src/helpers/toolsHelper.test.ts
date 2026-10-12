@@ -9,6 +9,7 @@ import {
   formatRupiah,
   formatSource,
   toNumber,
+  getErrorMessage,
 } from "./toolsHelper";
 
 vi.mock("sweetalert2", () => ({
@@ -118,5 +119,17 @@ describe("toolsHelper - cash flow helpers", () => {
     expect(formatSource("")).toBe("-");
     expect(formatSource(null)).toBe("-");
     expect(formatSource(undefined)).toBe("-");
+  });
+});
+
+describe("toolsHelper - getErrorMessage", () => {
+  it("should return the message of an Error instance", () => {
+    expect(getErrorMessage(new Error("Boom"))).toBe("Boom");
+  });
+
+  it("should stringify non-Error values", () => {
+    expect(getErrorMessage("plain")).toBe("plain");
+    expect(getErrorMessage(42)).toBe("42");
+    expect(getErrorMessage(null)).toBe("null");
   });
 });

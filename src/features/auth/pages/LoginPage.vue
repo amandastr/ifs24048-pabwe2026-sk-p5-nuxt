@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="onSubmitHandler" class="space-y-4">
     <div>
-      <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+      <label for="login-email-input" class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
         Alamat Email
       </label>
       <div class="relative">
@@ -22,7 +22,7 @@
     </div>
 
     <div>
-      <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
+      <label for="login-password-input" class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">
         Kata Sandi
       </label>
       <div class="relative">

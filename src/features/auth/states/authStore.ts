@@ -1,7 +1,11 @@
 import { defineStore } from "pinia";
 import authApi from "../api/authApi";
 import apiHelper from "../../../helpers/apiHelper";
-import { showErrorDialog, showSuccessDialog } from "../../../helpers/toolsHelper";
+import {
+  getErrorMessage,
+  showErrorDialog,
+  showSuccessDialog,
+} from "../../../helpers/toolsHelper";
 
 export interface AuthState {
   isAuthRegister: boolean;
@@ -10,6 +14,7 @@ export interface AuthState {
   isAuthLoggedIn: boolean;
   isAuthLogout: boolean;
   isAuthLoggedOut: boolean;
+  lastError: string;
 }
 
 export const useAuthStore = defineStore("auth", {
@@ -20,8 +25,12 @@ export const useAuthStore = defineStore("auth", {
     isAuthLoggedIn: false,
     isAuthLogout: false,
     isAuthLoggedOut: false,
+    lastError: "",
   }),
   actions: {
+    setLastError(message: string) {
+      this.lastError = message;
+    },
     setIsAuthRegister(status: boolean) {
       this.isAuthRegister = status;
     },
@@ -67,8 +76,9 @@ export const useAuthStore = defineStore("auth", {
     async asyncSetIsAuthLogout() {
       try {
         await authApi.postLogout();
-      } catch (error: any) {
-        // Abaikan kegagalan panggilan backend dan lanjutkan pembersihan token lokal
+      } catch (error) {
+        // Kegagalan backend dicatat, pembersihan token lokal tetap dilanjutkan
+        this.setLastError(getErrorMessage(error));
       } finally {
         apiHelper.putAccessToken("");
         this.setIsAuthLoggedOut(true);
