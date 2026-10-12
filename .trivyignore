@@ -8,4 +8,7 @@ CVE-2026-93687
 GHSA-vfj7-8cjw-p6xm
 
 # node-forge <= 1.4.0 - PKCS#1 v1.5 signature verification (nuxt > @nuxt/cli > listhen)
+CVE-2026-85393
+CVE-2026-33894
 GHSA-86w9-cpqp-85rv
+GHSA-ppp5-5v6c-4jwp
