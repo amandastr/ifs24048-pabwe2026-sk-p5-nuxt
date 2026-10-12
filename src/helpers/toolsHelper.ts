@@ -1,10 +1,6 @@
-import type { SweetAlertResult } from "sweetalert2";
+import Swal, { type SweetAlertResult } from "sweetalert2";
 
-// SweetAlert2 dimuat lazy (hanya saat dialog pertama ditampilkan)
-const loadSwal = async () => (await import("sweetalert2")).default;
-
-export async function showErrorDialog(message: string): Promise<SweetAlertResult<any>> {
-  const Swal = await loadSwal();
+export function showErrorDialog(message: string): Promise<SweetAlertResult<any>> {
   return Swal.fire({
     title: "Terjadi Kesalahan",
     text: message,
@@ -19,8 +15,7 @@ export async function showErrorDialog(message: string): Promise<SweetAlertResult
   });
 }
 
-export async function showWarningDialog(message: string): Promise<SweetAlertResult<any>> {
-  const Swal = await loadSwal();
+export function showWarningDialog(message: string): Promise<SweetAlertResult<any>> {
   return Swal.fire({
     title: "Peringatan",
     text: message,
@@ -35,8 +30,7 @@ export async function showWarningDialog(message: string): Promise<SweetAlertResu
   });
 }
 
-export async function showSuccessDialog(message: string): Promise<SweetAlertResult<any>> {
-  const Swal = await loadSwal();
+export function showSuccessDialog(message: string): Promise<SweetAlertResult<any>> {
   return Swal.fire({
     title: "Tindakan Berhasil",
     text: message,
@@ -51,8 +45,7 @@ export async function showSuccessDialog(message: string): Promise<SweetAlertResu
   });
 }
 
-export async function showConfirmDialog(message: string): Promise<SweetAlertResult<any>> {
-  const Swal = await loadSwal();
+export function showConfirmDialog(message: string): Promise<SweetAlertResult<any>> {
   return Swal.fire({
     title: "Konfirmasi",
     text: message,

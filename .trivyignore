@@ -1,0 +1,11 @@
+# Kerentanan di dependensi transitif Nuxt yang BELUM memiliki versi perbaikan di npm
+# (versi terbaru braces 3.0.3 dan node-forge 1.4.0 sama-sama masih terdampak).
+# Keduanya hanya dipakai oleh tooling build/dev-server (glob pattern dan HTTPS dev),
+# bukan oleh kode aplikasi di browser. Tinjau ulang setiap ada rilis perbaikan.
+
+# braces <= 3.0.3 - stack exhaustion DoS (nuxt > nitropack > globby > fast-glob > micromatch)
+CVE-2026-93687
+GHSA-vfj7-8cjw-p6xm
+
+# node-forge <= 1.4.0 - PKCS#1 v1.5 signature verification (nuxt > @nuxt/cli > listhen)
+GHSA-86w9-cpqp-85rv
